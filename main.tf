@@ -1,7 +1,7 @@
 provider "aws" {
   region = "us-east-1"
-  access_key = "AKIAY4M62XUOSWSQUKMJ"
-  secret_key = "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"
+  access_key = data.github_actions_environment_secret.aws_access_key_id.secret
+  secret_key = data.github_actions_environment_secret.aws_secret_access_key.secret
 }
 
 
