@@ -1,18 +1,3 @@
-provider "github" {
-  owner = "vinodrajs001"
-  repository = "terraformcloudpoc"
-}
-
-data "github_actions_environment_secret" "aws_access_key_id" {
-  environment     = "prod"
-  secret_name     = "AWS_ACCESS_KEY_ID"
-}
-
-data "github_actions_environment_secret" "aws_secret_access_key" {
-  environment     = "prod"
-  secret_name     = "AWS_SECRET_ACCESS_KEY"
-}
-
 provider "aws" {
   region = "us-east-1"
   access_key = data.github_actions_environment_secret.aws_access_key_id.secret
