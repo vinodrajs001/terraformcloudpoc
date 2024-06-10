@@ -5,12 +5,12 @@ provider "github" {
 
 data "github_actions_environment_secret" "aws_access_key_id" {
   environment     = "prod"
-  secret_name     = "AKIAY4M62XUOSWSQUKMJ"
+  secret_name     = "AWS_ACCESS_KEY_ID"
 }
 
 data "github_actions_environment_secret" "aws_secret_access_key" {
   environment     = "prod"
-  secret_name     = "hE38NoUY8L33tMsudIi298wFik6i3LmRJvLKVdEv"
+  secret_name     = "AWS_SECRET_ACCESS_KEY"
 }
 
 provider "aws" {
