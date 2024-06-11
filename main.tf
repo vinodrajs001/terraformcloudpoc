@@ -21,7 +21,7 @@ variable "AWS_SECRET_ACCESS_KEY" {
 variable "environment" {
   description = "The environment (e.g., development, staging, production)"
   type        = string
-  default = "development"
+  default = "production"
 }
 
 locals {
