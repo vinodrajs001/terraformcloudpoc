@@ -5,18 +5,6 @@ provider "aws" {
   secret_key = var.AWS_SECRET_ACCESS_KEY
 }
 
-
-resource "aws_s3_bucket" "my_bucket" {
-  bucket = "my-unique-bucket-name-c2f70dfb-4d1a-40c2-b245-dff0effcfa1a" # Replace with your desired bucket name
-  acl    = "private"               # Access control list (private, public-read, etc.)
-
-  tags = {
-    Name        = "My Bucket"
-    Environment = "Dev"
-  }
-}
-
-
 variable "AWS_ACCESS_KEY_ID" {
   description = "AWS access key"
   type        = string
@@ -28,3 +16,38 @@ variable "AWS_SECRET_ACCESS_KEY" {
   type        = string
   sensitive   = true
 }
+
+
+variable "environment" {
+  description = "The environment (e.g., development, staging, production)"
+  type        = string
+  default = "development"
+}
+
+locals {
+  billing_mode = {
+    development = "PAY_PER_REQUEST"
+    staging     = "PAY_PER_REQUEST"
+    production  = "PROVISIONED"
+  }
+}
+
+resource "aws_dynamodb_table" "example" {
+  name           = "example-table"
+  billing_mode   = local.billing_mode[var.environment]
+  hash_key       = "HashKey"
+
+   
+  dynamic "read_capacity" {
+    for_each = local.billing_mode[var.environment] == "PROVISIONED" ? [1] : []
+    content {
+      read_capacity  = 5
+      write_capacity = 5
+    }
+  }  
+}
+
+
+
+
+
