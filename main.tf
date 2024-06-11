@@ -38,7 +38,7 @@ locals {
 resource "aws_dynamodb_table" "example" {
   name           = "example-table"
   billing_mode   = local.billing_mode[var.environment]
-  hash_key       = "HashKey"
+  hash_key       = "sk"
 
   
   read_capacity  = local.read_capacity
