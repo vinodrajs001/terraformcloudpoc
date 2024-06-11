@@ -16,7 +16,7 @@ variable "AWS_SECRET_ACCESS_KEY" {
   type        = string
   sensitive   = true
 }
-
+# ----------------DO NOT CHANGE ABOVE CODE------------------------
 
 variable "environment" {
   description = "The environment (e.g., development, staging, production)"
