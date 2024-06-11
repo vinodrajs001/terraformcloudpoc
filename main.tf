@@ -42,7 +42,7 @@ resource "aws_dynamodb_table" "example" {
   
 
   attribute {
-      name = "id"
+      name = "Id"
       type = "S"
     }
 
