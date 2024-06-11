@@ -21,7 +21,6 @@ variable "AWS_SECRET_ACCESS_KEY" {
 variable "environment" {
   description = "The environment (e.g., development, staging, production)"
   type        = string
-  default = "development"
 }
 
 locals {
@@ -30,6 +29,9 @@ locals {
     staging     = "PAY_PER_REQUEST"
     production  = "PROVISIONED"
   }
+
+  read_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
+  write_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
 }
 
 resource "aws_dynamodb_table" "example" {
@@ -37,17 +39,9 @@ resource "aws_dynamodb_table" "example" {
   billing_mode   = local.billing_mode[var.environment]
   hash_key       = "HashKey"
 
-   
-  dynamic "read_capacity" {
-    for_each = local.billing_mode[var.environment] == "PROVISIONED" ? [1] : []
-    content {
-      read_capacity  = 5
-      write_capacity = 5
-    }
-  }  
+  
+  read_capacity  = local.read_capacity
+  write_capacity = local.write_capacity
+
+  
 }
-
-
-
-
-
