@@ -36,7 +36,7 @@ locals {
 }
 
 resource "aws_dynamodb_table" "example" {
-  name           = "example-table"
+  name           = "table_name-${var.environment}"
   billing_mode   = local.billing_mode[var.environment]
   hash_key       = "Id"
   
