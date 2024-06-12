@@ -43,8 +43,8 @@ locals {
     production = {
       table1 = {
           billing_mode = "PAY_PER_REQUEST"
-          read_capacity = 10
-          write_capacity = 10
+          read_capacity = null
+          write_capacity = null
         }
         table2 = {
           billing_mode = "PAY_PER_REQUEST"          
