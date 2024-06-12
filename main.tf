@@ -71,8 +71,8 @@ resource "aws_dynamodb_table" "table1" {
   # read_capacity  = local.read_capacity
   # write_capacity = local.write_capacity
 
-  read_capacity  = local.read_capacity
-  write_capacity = local.write_capacity
+  read_capacity  = local.billing_mode[var.environment]["table1"].read_capacity
+  write_capacity = local.billing_mode[var.environment]["table1"].write_capacity
   
 }
 
