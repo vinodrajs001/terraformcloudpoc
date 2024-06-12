@@ -42,8 +42,9 @@ locals {
     }  
     production = {
       table1 = {
-          billing_mode = "PAY_PER_REQUEST"
-          
+          billing_mode = "PROVISIONED"
+          read_capacity = 10
+          write_capacity = 10
         }
         table2 = {
           billing_mode = "PAY_PER_REQUEST"          
@@ -56,20 +57,22 @@ locals {
   write_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
 }
 
-resource "aws_dynamodb_table" "example" {
+resource "aws_dynamodb_table" "table1" {
   name           = "table_name-${var.environment}"
   # billing_mode   = local.billing_mode[var.environment]
   billing_mode   = local.billing_mode[var.environment]["table1"].billing_mode
-  hash_key       = "Id"
-  
+  hash_key       = "Id"  
 
   attribute {
       name = "Id"
       type = "S"
     }   
   
+  # read_capacity  = local.read_capacity
+  # write_capacity = local.write_capacity
+
   read_capacity  = local.read_capacity
   write_capacity = local.write_capacity
-
   
 }
+
