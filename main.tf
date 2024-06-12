@@ -42,7 +42,7 @@ locals {
     }  
     production = {
       table1 = {
-          billing_mode = "PROVISIONED"
+          billing_mode = "PAY_PER_REQUEST"
           read_capacity = 10
           write_capacity = 10
         }
