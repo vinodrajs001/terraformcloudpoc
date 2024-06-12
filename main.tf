@@ -29,23 +29,44 @@ locals {
     development = "PAY_PER_REQUEST"
     staging     = "PAY_PER_REQUEST"
     production  = "PROVISIONED"
-  }
 
-  read_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
-  write_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
+  environment = {
+      development = {
+        table1 = {
+          billing_mode = "PAY_PER_REQUEST"                    
+        }
+        table2 = {
+          billing_mode = "PROVISIONED"
+        }
+      }    
+    }  
+    production = {
+      table1 = {
+          billing_mode = "PROVISIONED"
+          
+        }
+        table2 = {
+          billing_mode = "PAY_PER_REQUEST"          
+        }
+      }    
+    }
+  
+  
+  # read_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
+  # write_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
 }
 
 resource "aws_dynamodb_table" "example" {
   name           = "table_name-${var.environment}"
-  billing_mode   = local.billing_mode[var.environment]
+  # billing_mode   = local.billing_mode[var.environment]
+  billing_mode   = local.billing_mode[var.environment][table1].billing_mode
   hash_key       = "Id"
   
 
   attribute {
       name = "Id"
       type = "S"
-    }
-    
+    }   
   
   read_capacity  = local.read_capacity
   write_capacity = local.write_capacity
