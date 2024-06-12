@@ -47,7 +47,9 @@ locals {
           write_capacity = null
         }
         table2 = {
-          billing_mode = "PAY_PER_REQUEST"          
+          billing_mode = "PROVISIONED"
+          read_capacity = 10
+          write_capacity = 5         
         }
       }    
     }
@@ -76,3 +78,22 @@ resource "aws_dynamodb_table" "table1" {
   
 }
 
+
+resource "aws_dynamodb_table" "table2" {
+  name           = "table_name-${var.environment}"
+  # billing_mode   = local.billing_mode[var.environment]
+  billing_mode   = local.billing_mode[var.environment]["table2"].billing_mode
+  hash_key       = "Id"  
+
+  attribute {
+      name = "Id"
+      type = "S"
+    }   
+  
+  # read_capacity  = local.read_capacity
+  # write_capacity = local.write_capacity
+
+  read_capacity  = local.billing_mode[var.environment]["table2"].read_capacity
+  write_capacity = local.billing_mode[var.environment]["table2"].write_capacity
+  
+}
