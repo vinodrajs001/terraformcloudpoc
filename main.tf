@@ -52,14 +52,14 @@ locals {
     }
   
   
-  # read_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
-  # write_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
+  read_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
+  write_capacity = local.billing_mode[var.environment] == "PROVISIONED" ? 10 : null
 }
 
 resource "aws_dynamodb_table" "example" {
   name           = "table_name-${var.environment}"
   # billing_mode   = local.billing_mode[var.environment]
-  billing_mode   = local.billing_mode[var.environment][table1].billing_mode
+  billing_mode   = local.billing_mode[var.environment]["table1"].billing_mode
   hash_key       = "Id"
   
 
