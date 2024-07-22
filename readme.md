@@ -1,6 +1,6 @@
 <!-- 
 GitHub Repo
-https://app.terraform.io/app/vinodorg/workspaces/terraformcloudpoc 
+https://github.com/vinodrajs001/terraformcloudpoc
 -->
 
 <!-- Terraform Cloud -->
