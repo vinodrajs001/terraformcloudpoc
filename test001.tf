@@ -1,16 +1,16 @@
 variable "bucket_configs" {
   type = map(object({    
-    is_production = bool    
+    is_javaproj = bool    
   }))
   default = {
     "678c5b75-761f-4ca6-9796-5d911460cd3c" = {      
-      is_production = false      
+      is_javaproj = false      
     },
     "cbe172ae-a153-450a-98aa-0593b24a51cb" = {      
-      is_production = true      
+      is_javaproj = true      
     },
     "33fedfcb-3952-4818-9c9e-992331714002" = {      
-      is_production = true     
+      is_javaproj = true     
     }
   }
 }
@@ -34,7 +34,7 @@ resource "aws_s3_bucket" "buckets" {
   # Add tags based on the bucket name lookup
   tags = {
     Name        = var.bucket_names[count.index]
-    Environment = lookup(var.bucket_configs, var.bucket_names[count.index]).is_production ? "prod" : "dev"
+    JavaProject = lookup(var.bucket_configs, var.bucket_names[count.index]).is_javaproj ? "true" : "false"
   }  
   
 }
