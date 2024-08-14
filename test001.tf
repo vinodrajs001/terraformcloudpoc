@@ -3,13 +3,13 @@ variable "bucket_configs" {
     is_javaproj = bool    
   }))
   default = {
-    "678c5b75-761f-4ca6-9796-5d911460cd3c" = {      
+    "678c5b75-761f-4ca6-9796-5d911460cd3c-service-001" = {      
       is_javaproj = false      
     },
-    "cbe172ae-a153-450a-98aa-0593b24a51cb" = {      
+    "cbe172ae-a153-450a-98aa-0593b24a51cb-service-002" = {      
       is_javaproj = true      
     },
-    "33fedfcb-3952-4818-9c9e-992331714002" = {      
+    "33fedfcb-3952-4818-9c9e-992331714002-service-003" = {      
       is_javaproj = true     
     }
   }
@@ -22,7 +22,7 @@ variable "bucket_configs" {
 variable "bucket_names" {
   description = "List of bucket names"
   type        = list(string)
-  default     = ["678c5b75-761f-4ca6-9796-5d911460cd3c", "cbe172ae-a153-450a-98aa-0593b24a51cb", "33fedfcb-3952-4818-9c9e-992331714002"]
+  default     = ["678c5b75-761f-4ca6-9796-5d911460cd3c-service-001", "cbe172ae-a153-450a-98aa-0593b24a51cb-service-002", "33fedfcb-3952-4818-9c9e-992331714002-service-003"]
 }
 
 # Create multiple S3 buckets with tags based on lookup
