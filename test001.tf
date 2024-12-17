@@ -1,26 +1,34 @@
-# IAM Role
-resource "aws_iam_role" "custom_role" {
-  name = "custom-role"
-  
-  # Reference the trust policy JSON file
-  assume_role_policy = file("${path.module}/trust-policy.json")
-
-  tags = {
-    Environment = "Production"
-    Purpose     = "Custom Role"
-  }
+# Variables
+variable "bucket_name" {
+  type        = string
+  description = "Name of the S3 bucket"
 }
 
-# IAM Policy
-resource "aws_iam_role_policy" "custom_policy" {
-  name = "custom-policy"
-  role = aws_iam_role.custom_role.id
-  
-  # Reference the role policy JSON file
-  policy = file("${path.module}/role-policy.json")
+variable "table_name" {
+  type        = string
+  description = "Name of the DynamoDB table"
 }
 
-# Output the role ARN
-output "role_arn" {
-  value = aws_iam_role.custom_role.arn
+variable "environment" {
+  type        = string
+  description = "Environment name"
+  default     = "production"
+}
+
+# Data sources
+data "aws_region" "current" {}
+data "aws_caller_identity" "current" {}
+
+# Create policy using templatefile
+resource "aws_iam_policy" "template_policy" {
+  name        = "template-policy"
+  description = "Policy created from template file"
+  
+  policy = templatefile("${path.module}/trust-policy.json", {
+    bucket_name = var.bucket_name
+    table_name  = var.table_name
+    environment = var.environment
+    region      = data.aws_region.current.name
+    account_id  = data.aws_caller_identity.current.account_id
+  })
 }
