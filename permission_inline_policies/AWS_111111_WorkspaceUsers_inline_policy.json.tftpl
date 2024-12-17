@@ -13,7 +13,7 @@
             ],
             "Condition": {
                 "StringEquals": {
-                    "ec2:ResourceTag/owner": "${aws:userid}"
+                    "ec2:ResourceTag/UserName": "${aws:username}"
                 }
             }
         }
