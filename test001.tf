@@ -7,7 +7,7 @@ resource "aws_iam_group" "workspace_users" {
 # Define policy document using templatefile
 data "aws_iam_policy_document" "AWS_111111_WorkspaceUsers_inline_policy" {
   source_policy_documents = [
-    templatefile("${path.module}/permission_inline_policies/AWS_111111_WorkspaceUsers_inline_policy.json.tftpl", {
+    templatefile("${path.module}/permission_inline_policies/AWS_111111_WorkspaceUsers_inline_policy.json", {
       zscaler_ips = local.zscaler_ips
     })
   ]
@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "AWS_111111_WorkspaceUsers_inline_policy" {
 resource "aws_iam_policy" "workspace_users" {
   name        = "workspace-users-policy"
   description = "Policy for Workspace users with Zscaler IP restrictions"
-  policy      = data.aws_iam_policy_document.AWS_111111_WorkspaceUsers_inline_policy.json.tftpl
+  policy      = data.aws_iam_policy_document.AWS_111111_WorkspaceUsers_inline_policy.json
 }
 
 # Attach policy to the group
@@ -65,4 +65,5 @@ locals {
     "198.51.100.0/24",
     "192.0.2.0/24"
   ]
+  
 }
