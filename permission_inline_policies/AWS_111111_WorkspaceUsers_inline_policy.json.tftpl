@@ -1,20 +1,6 @@
 {
     "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowAccessFromZscaler",
-            "Effect": "Allow",
-            "Action": [
-                "workspaces:*"
-            ],
-            "Resource": "*",
-            "Condition": {
-                "IpAddress": {
-                    "aws:SourceIp": ${jsonencode(zscaler_ips)
-                    }
-                }
-            }
-        },
+    "Statement": [        
         {
             "Sid": "EC2Premissions",
             "Effect": "Allow",
