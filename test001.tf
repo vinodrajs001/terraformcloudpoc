@@ -6,6 +6,10 @@ locals {
     "192.0.2.0/24"
   ]
 }
+resource "aws_iam_group" "workspace_users" {
+  name = "workspace-users"
+  path = "/"
+}
 
 # Create policy document using templatefile
 data "aws_iam_policy_document" "AWS_111111_WorkspaceUsers_inline_policy" {
