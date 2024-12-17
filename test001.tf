@@ -24,7 +24,7 @@ resource "aws_iam_policy" "template_policy" {
   name        = "template-policy"
   description = "Policy created from template file"
   
-  policy = templatefile("${path.module}/trust-policy.json", {
+  policy = templatefile("${path.module}/policy.json", {
     bucket_name = var.bucket_name
     table_name  = var.table_name
     environment = var.environment
