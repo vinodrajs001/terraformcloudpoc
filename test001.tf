@@ -2,11 +2,13 @@
 variable "bucket_name" {
   type        = string
   description = "Name of the S3 bucket"
+  default = "vinodshalgarbucket"
 }
 
 variable "table_name" {
   type        = string
   description = "Name of the DynamoDB table"
+  default = "vinodshalgartable"
 }
 
 variable "environment" {
