@@ -1,36 +1,30 @@
-# Variables
-variable "bucket_name" {
-  type        = string
-  description = "Name of the S3 bucket"
-  default = "vinodshalgarbucket"
+# Define local variables
+locals {
+  zscaler_ips = [
+    "203.0.113.0/24",
+    "198.51.100.0/24",
+    "192.0.2.0/24"
+  ]
 }
 
-variable "table_name" {
-  type        = string
-  description = "Name of the DynamoDB table"
-  default = "vinodshalgartable"
+# Create policy document using templatefile
+data "aws_iam_policy_document" "AWS_111111_WorkspaceUsers_inline_policy" {
+  source_policy_documents = [
+    templatefile("${path.module}/permission_inline_policies/AWS_111111_WorkspaceUsers_inline_policy.json", {
+      zscaler_ips = local.zscaler_ips
+    })
+  ]
 }
 
-variable "environment" {
-  type        = string
-  description = "Environment name"
-  default     = "production"
+# Create the IAM policy
+resource "aws_iam_policy" "workspace_users" {
+  name        = "workspace-users-policy"
+  description = "Policy for Workspace users with Zscaler IP restrictions"
+  policy      = data.aws_iam_policy_document.AWS_111111_WorkspaceUsers_inline_policy.json
 }
 
-# Data sources
-data "aws_region" "current" {}
-data "aws_caller_identity" "current" {}
-
-# Create policy using templatefile
-resource "aws_iam_policy" "template_policy" {
-  name        = "template-policy"
-  description = "Policy created from template file"
-  
-  policy = templatefile("${path.module}/policy.json", {
-    bucket_name = var.bucket_name
-    table_name  = var.table_name
-    environment = var.environment
-    region      = data.aws_region.current.name
-    account_id  = data.aws_caller_identity.current.account_id
-  })
+# Attach policy to a group
+resource "aws_iam_group_policy_attachment" "workspace_users" {
+  group      = aws_iam_group.workspace_users.name
+  policy_arn = aws_iam_policy.workspace_users.arn
 }
