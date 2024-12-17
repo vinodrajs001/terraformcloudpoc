@@ -10,7 +10,24 @@
             "Resource": "*",
             "Condition": {
                 "IpAddress": {
-                    "aws:SourceIp": ${jsonencode(zscaler_ips)}
+                    "aws:SourceIp": ${jsonencode(zscaler_ips)
+                    }
+                }
+            }
+        },
+        {
+            "Sid": "EC2Premissions",
+            "Effect": "Allow",
+            "Resource": "*",
+            "Action": [
+                "ec2:TerminateInstances",
+                "ec2:StopInstances",
+                "ec2:StartInstances",
+                "ec2:RebootInstances"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/owner": "${aws:userid}"
                 }
             }
         }
