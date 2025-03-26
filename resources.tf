@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "example" {
   name     = "example-tg"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.example.id
+  vpc_id   = "vpc-0741f83e6f61041ee"
 
   health_check {
     path                = "/"
