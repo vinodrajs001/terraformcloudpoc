@@ -1,12 +1,14 @@
-name: Build and Push Docker Image
+name: Build and Push Docker Image ( manual )
 
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: my-node-api  # Change this to your image name
