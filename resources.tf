@@ -2,8 +2,8 @@ resource "aws_lb" "example" {
   name               = "example-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.example.id]
-  subnets            = [aws_subnet.example1.id, aws_subnet.example2.id]
+  security_groups    = ["sg-0893bd7159dd9c7d6"]
+  subnets            = ["subnet-0cb1689f95ef7512f", "subnet-014f83ac14c61b795"]
 
   enable_deletion_protection = false
   idle_timeout               = 60
