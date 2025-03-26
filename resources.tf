@@ -63,3 +63,22 @@ resource "aws_lb_listener_rule" "example" {
     }
   }
 }
+
+
+resource "aws_lb_listener_rule" "rule001" {
+  listener_arn = aws_lb_listener.example.arn
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.example.arn
+  }
+
+  condition {
+    host_header {
+      values = ["example1.com", "*.example1.com"]
+    }
+  }
+}
+
+
