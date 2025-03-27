@@ -49,7 +49,7 @@ resource "aws_lb_listener" "example_one" {
 
 
 resource "aws_lb_listener_rule" "example_one" {
-  listener_arn = aws_lb_listener.example_one.arne
+  listener_arn = aws_lb_listener.example_one.arn
   priority     = 100
 
   action {
