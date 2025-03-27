@@ -36,7 +36,7 @@ resource "aws_lb_target_group" "example_one" {
 }
 
 
-resource "aws_lb_listener" "example" {
+resource "aws_lb_listener" "example_one" {
   load_balancer_arn = aws_lb.example_one.arn
   port              = "80"
   protocol          = "HTTP"
@@ -48,7 +48,7 @@ resource "aws_lb_listener" "example" {
 }
 
 
-resource "aws_lb_listener_rule" "example" {
+resource "aws_lb_listener_rule" "example_one" {
   listener_arn = aws_lb_listener.example_one.arne
   priority     = 100
 
