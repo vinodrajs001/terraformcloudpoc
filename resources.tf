@@ -86,7 +86,8 @@ resource "aws_lb_listener_rule" "example_one" {
   for_each = var.listener_rules
 
   listener_arn = aws_lb_listener.example_one.arn
-  priority     = each.value.priority
+  # priority     = each.value.priority
+  priority = contains(each.value.host_headers, "example.com") ? 500 : (contains(each.value.host_headers,"example.com")? 600 : 100)
 
   action {
     type             = "forward"
