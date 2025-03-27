@@ -2,8 +2,8 @@ resource "aws_lb" "example" {
   name               = "example-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = ["sg-0893bd7159dd9c7d6"]
-  subnets            = ["subnet-0cb1689f95ef7512f", "subnet-014f83ac14c61b795"]
+  security_groups    = ["sg-06aa2bdbe28342db1"]
+  subnets            = ["subnet-0f80ea9f354297b8e", "subnet-034c71572324e4cfc"]
 
   enable_deletion_protection = false
   idle_timeout               = 60
@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "example" {
   name     = "example-tg"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "vpc-0741f83e6f61041ee"
+  vpc_id   = "vpc-097e63d0baae37326"
 
   health_check {
     path                = "/"
