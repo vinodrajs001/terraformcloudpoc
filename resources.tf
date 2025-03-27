@@ -1,4 +1,4 @@
-resource "aws_lb" "example" {
+resource "aws_lb" "example_one" {
   name               = "example-alb"
   internal           = false
   load_balancer_type = "application"
@@ -37,7 +37,7 @@ resource "aws_lb_target_group" "example" {
 
 
 resource "aws_lb_listener" "example" {
-  load_balancer_arn = aws_lb.example.arn
+  load_balancer_arn = aws_lb.example_one.arn
   port              = "80"
   protocol          = "HTTP"
 
