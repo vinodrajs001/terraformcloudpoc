@@ -113,7 +113,7 @@ variable "listener_rules" {
       host_headers = ["example.com", "*.example.com"]
     },
     "rule2" = {
-      priority     = 200
+      priority     = 100
       host_headers = ["test.com", "*.test.com"]
     }
   }
