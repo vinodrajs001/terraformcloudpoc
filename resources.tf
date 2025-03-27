@@ -15,7 +15,7 @@ resource "aws_lb" "example_one" {
 
 
 
-resource "aws_lb_target_group" "example" {
+resource "aws_lb_target_group" "example_one" {
   name     = "example-tg"
   port     = 80
   protocol = "HTTP"
@@ -43,18 +43,18 @@ resource "aws_lb_listener" "example" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.example.arn
+    target_group_arn = aws_lb_target_group.example_one.arn
   }
 }
 
 
 resource "aws_lb_listener_rule" "example" {
-  listener_arn = aws_lb_listener.example.arn
+  listener_arn = aws_lb_listener.example_one.arne
   priority     = 100
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.example.arn
+    target_group_arn = aws_lb_target_group.example_one.arn
   }
 
   condition {
@@ -66,12 +66,12 @@ resource "aws_lb_listener_rule" "example" {
 
 
 resource "aws_lb_listener_rule" "rule001" {
-  listener_arn = aws_lb_listener.example.arn
+  listener_arn = aws_lb_listener.example_one.arn
   priority     = 100
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.example.arn
+    target_group_arn = aws_lb_target_group.example_one.arn
   }
 
   condition {
