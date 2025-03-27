@@ -82,3 +82,21 @@ resource "aws_lb_listener_rule" "rule001" {
 }
 
 
+variable "listener_rules" {
+  type = map(object({
+    priority     = number
+    host_headers = list(string)
+  }))
+  default = {
+    "rule1" = {
+      priority     = 100
+      host_headers = ["example.com", "*.example.com"]
+    },
+    "rule2" = {
+      priority     = 200
+      host_headers = ["test.com", "*.test.com"]
+    }
+  }
+}
+
+
