@@ -47,7 +47,7 @@ resource "aws_lb_listener" "example_one" {
   }
 }
 
-
+/*
 resource "aws_lb_listener_rule" "example_one" {
   listener_arn = aws_lb_listener.example_one.arn
   priority     = 100
@@ -80,6 +80,26 @@ resource "aws_lb_listener_rule" "rule001" {
     }
   }
 }
+*/
+
+resource "aws_lb_listener_rule" "example_one" {
+  for_each = var.listener_rules
+
+  listener_arn = aws_lb_listener.example_one.arn
+  priority     = each.value.priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.example_one.arn
+  }
+
+  condition {
+    host_header {
+      values = each.value.host_headers
+    }
+  }
+}
+
 
 
 variable "listener_rules" {
